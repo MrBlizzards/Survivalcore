@@ -1,0 +1,6 @@
+name: Survivalcore
+version: '${project.version}'
+main: com.andrew.survivalcore.Main
+api-version: 1.20
+authors: [ Andrew ]
+description: My first attempt at a survival core
