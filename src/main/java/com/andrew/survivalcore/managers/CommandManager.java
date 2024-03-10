@@ -1,4 +1,4 @@
-package com.andrew.survivalcore.manager;
+package com.andrew.survivalcore.managers;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

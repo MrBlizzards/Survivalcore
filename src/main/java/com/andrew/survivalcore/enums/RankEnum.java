@@ -1,6 +1,6 @@
-package com.andrew.survivalcore;
+package com.andrew.survivalcore.enums;
 
-import com.andrew.survivalcore.util.ChatColorUtil;
+import com.andrew.survivalcore.utils.ChatColorUtil;
 
 public enum RankEnum {
 

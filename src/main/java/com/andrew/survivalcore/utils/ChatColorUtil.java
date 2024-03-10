@@ -1,4 +1,4 @@
-package com.andrew.survivalcore.util;
+package com.andrew.survivalcore.utils;
 
 import net.md_5.bungee.api.ChatColor;
 

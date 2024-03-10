@@ -1,9 +1,9 @@
 package com.andrew.survivalcore;
 
-import com.andrew.survivalcore.manager.NameTagManager;
-import com.mongodb.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import com.andrew.survivalcore.commands.RankCommand;
+import com.andrew.survivalcore.listeners.RankListener;
+import com.andrew.survivalcore.managers.NameTagManager;
+import com.andrew.survivalcore.managers.RankManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 

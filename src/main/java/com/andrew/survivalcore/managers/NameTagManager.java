@@ -1,7 +1,7 @@
-package com.andrew.survivalcore.manager;
+package com.andrew.survivalcore.managers;
 
 import com.andrew.survivalcore.Main;
-import com.andrew.survivalcore.RankEnum;
+import com.andrew.survivalcore.enums.RankEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Team;
@@ -41,4 +41,5 @@ public class NameTagManager {
             target.getScoreboard().getEntryTeam(player.getName()).removeEntry(player.getName());
         }
     }
+
 }

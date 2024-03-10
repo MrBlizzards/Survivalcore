@@ -1,7 +1,9 @@
-package com.andrew.survivalcore;
+package com.andrew.survivalcore.commands;
 
-import com.andrew.survivalcore.manager.CommandManager;
-import com.andrew.survivalcore.util.ChatColorUtil;
+import com.andrew.survivalcore.Main;
+import com.andrew.survivalcore.enums.RankEnum;
+import com.andrew.survivalcore.managers.CommandManager;
+import com.andrew.survivalcore.utils.ChatColorUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;

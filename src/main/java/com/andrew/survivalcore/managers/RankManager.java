@@ -1,10 +1,10 @@
-package com.andrew.survivalcore;
+package com.andrew.survivalcore.managers;
 
-import org.bson.Document;
+import com.andrew.survivalcore.Main;
+import com.andrew.survivalcore.enums.RankEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 import java.io.IOException;
