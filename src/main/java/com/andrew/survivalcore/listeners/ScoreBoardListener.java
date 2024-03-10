@@ -25,13 +25,12 @@ public class ScoreBoardListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
 
-        Player player = e.getPlayer();
-
         Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
-
         Objective obj = board.registerNewObjective("testboard", "dummy");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         obj.setDisplayName("Test Board!");
+
+        Player player = e.getPlayer();
 
         Score website = obj.getScore("www.test-website");
         website.setScore(1);
@@ -42,10 +41,20 @@ public class ScoreBoardListener implements Listener {
         Score name = obj.getScore(player.getName());
         name.setScore(3);
 
-        Score rank = obj.getScore(main.getRankManager().getRank(player.getUniqueId()).getDisplay());
-        rank.setScore(4);
+        Team playerRank = board.registerNewTeam("rank");
+        playerRank.addEntry(ChatColor.BOLD.toString() + "  ");
+        if (Bukkit.getOnlinePlayers().size() == 0) {
+            playerRank.setPrefix(main.getRankManager().getRank(player.getUniqueId()).getDisplay());
+        } else {
+            playerRank.setPrefix(main.getRankManager().getRank(player.getUniqueId()).getDisplay());
+        }
+        obj.getScore(ChatColor.BOLD.toString() + "  ").setScore(4);
+
 
         player.setScoreboard(board);
+
+        https://www.spigotmc.org/wiki/making-scoreboard-with-teams-no-flicker/
+
 
     }
 }
