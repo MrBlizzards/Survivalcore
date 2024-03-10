@@ -62,6 +62,7 @@ public class RankCommand extends CommandManager {
             for (RankEnum rank : RankEnum.values()) {
                 if (rank.name().equalsIgnoreCase(args[1])) {
 
+                    main.getNameTagManager().updateTag(player, rank);
                     main.getRankManager().setRank(target.getUniqueId(), rank);
                     if (player == target) {
                         player.sendMessage(ChatColorUtil.colorize("&aYou have changed your rank to " + rank.getDisplay()));

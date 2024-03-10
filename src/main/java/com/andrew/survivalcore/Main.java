@@ -2,6 +2,7 @@ package com.andrew.survivalcore;
 
 import com.andrew.survivalcore.commands.RankCommand;
 import com.andrew.survivalcore.listeners.RankListener;
+import com.andrew.survivalcore.listeners.ScoreBoardListener;
 import com.andrew.survivalcore.managers.NameTagManager;
 import com.andrew.survivalcore.managers.RankManager;
 import org.bukkit.Bukkit;
@@ -25,6 +26,7 @@ public final class Main extends JavaPlugin {
 
         // Register Listener
         Bukkit.getPluginManager().registerEvents(new RankListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new ScoreBoardListener(this), this);
 
 
         // Register Commands

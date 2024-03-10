@@ -4,6 +4,7 @@ import com.andrew.survivalcore.Main;
 import com.andrew.survivalcore.enums.RankEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
 public class NameTagManager {
@@ -32,14 +33,36 @@ public class NameTagManager {
     public void newTag(Player player) {
         RankEnum rank = main.getRankManager().getRank(player.getUniqueId());
         for (Player target : Bukkit.getOnlinePlayers()) {
+            if (target.getScoreboard().getTeam(rank.name()) == null) continue;
             target.getScoreboard().getTeam(rank.name()).addEntry(player.getName());
         }
     }
 
     public void removeTag(Player player) {
         for (Player target : Bukkit.getOnlinePlayers()) {
+            if (target.getScoreboard().getEntryTeam(player.getName()) == null) continue;
             target.getScoreboard().getEntryTeam(player.getName()).removeEntry(player.getName());
         }
     }
 
+    public void updateTag(Player player, RankEnum newRank) {
+        Scoreboard scoreboard = player.getScoreboard();
+        Team newTeam = scoreboard.getTeam(newRank.name());
+        if (newTeam != null) {
+            newTeam.addEntry(player.getName());
+        }
+
+        for (RankEnum rank : RankEnum.values()) {
+            Team team = scoreboard.getTeam(rank.name());
+            if (team != null) {
+                for (String entry : team.getEntries()) {
+                    if (!entry.equals(player.getName())) {
+                        continue;
+                    }
+                    team.removeEntry(entry);
+                    break;
+                }
+            }
+        }
+    }
 }
