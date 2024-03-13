@@ -1,5 +1,6 @@
-package com.andrew.survivalcore;
+package com.andrew.survivalcore.listeners;
 
+import com.andrew.survivalcore.Main;
 import com.andrew.survivalcore.enums.MaterialEnum;
 import com.andrew.survivalcore.utils.ItemBuilder;
 import org.bukkit.*;
