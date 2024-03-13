@@ -2,7 +2,6 @@ package com.andrew.survivalcore.commands;
 
 import com.andrew.survivalcore.Main;
 import com.andrew.survivalcore.enums.RankEnum;
-import com.andrew.survivalcore.listeners.ScoreBoardListener;
 import com.andrew.survivalcore.managers.CommandManager;
 import com.andrew.survivalcore.utils.ChatColorUtil;
 import com.google.common.cache.Cache;
@@ -20,7 +19,6 @@ import java.util.concurrent.TimeUnit;
 
 public class RankCommand extends CommandManager {
 
-
     private Cache<UUID, Long> cooldown = CacheBuilder.newBuilder().expireAfterWrite(5, TimeUnit.SECONDS).build();
 
     private Main main;
@@ -28,7 +26,7 @@ public class RankCommand extends CommandManager {
     public RankCommand(Main main) {
         super(
                 "rank",
-                new String[]{"cake", "banana"},
+                new String[]{},
                 "A really cool command!",
                 "",
                 "");
@@ -63,7 +61,6 @@ public class RankCommand extends CommandManager {
         // Checks to see if the first argument, which would be the player, is null or not.
         if (Bukkit.getOfflinePlayer(args[0]) != null) {
             OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
-            main.getNameTagManager().updateScoreBoard(target.getPlayer());
 
             for (RankEnum rank : RankEnum.values()) {
                 if (rank.name().equalsIgnoreCase(args[1])) {
@@ -86,9 +83,6 @@ public class RankCommand extends CommandManager {
             player.sendMessage(ChatColorUtil.colorize("&cThis user has never joined the server before!"));
         }
     }
-
-
-
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String[] args) {
