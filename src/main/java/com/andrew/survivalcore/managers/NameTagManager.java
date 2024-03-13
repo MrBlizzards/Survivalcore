@@ -2,11 +2,9 @@ package com.andrew.survivalcore.managers;
 
 import com.andrew.survivalcore.Main;
 import com.andrew.survivalcore.enums.RankEnum;
-import com.andrew.survivalcore.utils.ChatColorUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
@@ -22,22 +20,22 @@ public class NameTagManager {
         player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
 
         for (RankEnum ranks : RankEnum.values()) {
-            Team team = player.getScoreboard().registerNewTeam(ranks.name());
+            Team team = player.getScoreboard().registerNewTeam(ranks.getRankRanking() + ranks.name());
             team.setPrefix(ranks.getDisplay() + " ");
         }
 
         for (Player target : Bukkit.getOnlinePlayers()) {
             if (player.getUniqueId() != target.getUniqueId()) {
-                player.getScoreboard().getTeam(main.getRankManager().getRank(target.getUniqueId()).name()).addEntry(target.getName());
+                player.getScoreboard().getTeam(main.getRankManager().getRank(target.getUniqueId()).getRankRanking() + main.getRankManager().getRank(target.getUniqueId()).name()).addEntry(target.getName());
             }
         }
     }
 
     public void newTag(Player player) {
-        RankEnum rank = main.getRankManager().getRank(player.getUniqueId());
+        RankEnum ranks = main.getRankManager().getRank(player.getUniqueId());
         for (Player target : Bukkit.getOnlinePlayers()) {
-            if (target.getScoreboard().getTeam(rank.name()) == null) continue;
-            target.getScoreboard().getTeam(rank.name()).addEntry(player.getName());
+            if (target.getScoreboard().getTeam(ranks.getRankRanking() + ranks.name()) == null) continue;
+            target.getScoreboard().getTeam(ranks.getRankRanking() + ranks.name()).addEntry(player.getName());
         }
     }
 
@@ -51,8 +49,17 @@ public class NameTagManager {
     public void updateScoreBoard(Player player) {
         Scoreboard board = player.getScoreboard();
         Team team1 = board.getTeam("team1");
+        Team team2 = board.getTeam("team2");
 
-        team1.setSuffix(main.getRankManager().getRank(player.getUniqueId()).getDisplay());
+        if (team1 != null) {
+            team1.setSuffix(main.getRankManager().getRank(player.getUniqueId()).getDisplay());
+        }
+        if (team2 != null) {
+            team2.setPrefix(main.getRankManager().getRank(player.getUniqueId()).getDisplay());
+            player.setPlayerListName(team2.getPrefix() + " " + ChatColor.GRAY + player.getName());
+        }
+
+
     }
 }
 
