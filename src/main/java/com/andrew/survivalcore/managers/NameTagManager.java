@@ -2,7 +2,9 @@ package com.andrew.survivalcore.managers;
 
 import com.andrew.survivalcore.Main;
 import com.andrew.survivalcore.enums.RankEnum;
+import com.andrew.survivalcore.utils.ChatColorUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
@@ -46,13 +48,13 @@ public class NameTagManager {
         }
     }
 
-    public void updateTag(Player player) {
-        if (Bukkit.getOnlinePlayers().size() == 0) {
+    public void updateScoreBoard(Player player) {
+        Scoreboard board = player.getScoreboard();
+        Team team1 = board.getTeam("team1");
 
-        }
-        for (RankEnum rank : RankEnum.values()) {
-            Scoreboard board = player.getScoreboard();
-             board.getTeam(rank.name()).setPrefix(rank.getDisplay());
-            }
-        }
+        team1.setSuffix(main.getRankManager().getRank(player.getUniqueId()).getDisplay());
     }
+}
+
+
+
