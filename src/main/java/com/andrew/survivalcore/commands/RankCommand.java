@@ -2,8 +2,11 @@ package com.andrew.survivalcore.commands;
 
 import com.andrew.survivalcore.Main;
 import com.andrew.survivalcore.enums.RankEnum;
+import com.andrew.survivalcore.listeners.ScoreBoardListener;
 import com.andrew.survivalcore.managers.CommandManager;
 import com.andrew.survivalcore.utils.ChatColorUtil;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -12,11 +15,13 @@ import org.bukkit.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class RankCommand extends CommandManager {
 
 
-    // private Cache<UUID, Long> cooldown = CacheBuilder.newBuilder().expireAfterWrite(5, TimeUnit.SECONDS).build();
+    private Cache<UUID, Long> cooldown = CacheBuilder.newBuilder().expireAfterWrite(5, TimeUnit.SECONDS).build();
 
     private Main main;
 
@@ -58,12 +63,13 @@ public class RankCommand extends CommandManager {
         // Checks to see if the first argument, which would be the player, is null or not.
         if (Bukkit.getOfflinePlayer(args[0]) != null) {
             OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
+            main.getNameTagManager().updateScoreBoard(target.getPlayer());
 
             for (RankEnum rank : RankEnum.values()) {
                 if (rank.name().equalsIgnoreCase(args[1])) {
 
-                    main.getNameTagManager().updateTag(player);
                     main.getRankManager().setRank(target.getUniqueId(), rank);
+                    main.getNameTagManager().updateScoreBoard(target.getPlayer());
                     if (player == target) {
                         player.sendMessage(ChatColorUtil.colorize("&aYou have changed your rank to " + rank.getDisplay()));
                         return;
