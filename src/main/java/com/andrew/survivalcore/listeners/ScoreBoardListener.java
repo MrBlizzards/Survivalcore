@@ -14,32 +14,46 @@ public class ScoreBoardListener implements Listener {
 
     private Main main;
 
-    public ScoreBoardListener(Main main) { this.main = main; }
+    public ScoreBoardListener(Main main) {
+        this.main = main;
+    }
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
+
         createBoard(e.getPlayer());
     }
 
     public void createBoard(Player player) {
-
         // CREATE THE SCOREBOARD
         ScoreboardManager manager = Bukkit.getScoreboardManager();
         Scoreboard board = manager.getNewScoreboard();
-        Objective obj = board.registerNewObjective("SurvivalCore-Rank", "dummy", ChatColorUtil.colorize("&b&lFrosted&f&lNetwork"));
+
+        // CREATE THE SIDEBAR
+        createSidebar(board, player);
+
+        // CREATE THE PLAYER LIST SCOREBOARD
+        createPlayerList(board, player);
+
+        // SETS THE SCOREBOARD
+        player.setScoreboard(board);
+    }
+
+    public void createSidebar(Scoreboard board, Player player) {
+        Objective obj = board.registerNewObjective("Sidebar-Rank", "dummy", ChatColorUtil.colorize("&b&lFrosted&f&lNetwork"));
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 
         // RIGHT UNDER THE TITLE
-        Score score = obj.getScore(ChatColorUtil.colorize(("&7&l-----------------")));
-        score.setScore(6);
+        Score line2 = obj.getScore(ChatColorUtil.colorize(("&7&l-----------------")));
+        line2.setScore(7);
 
         // SPACE #2
         Score space2 = obj.getScore("   ");
-        space2.setScore(5);
+        space2.setScore(6);
 
         // PLAYER NAME
         Score playerName = obj.getScore(ChatColorUtil.colorize("&7&lName: &7" + player.getName()));
-        playerName.setScore(4);
+        playerName.setScore(5);
 
         // RANK TEAM SYSTEM
         Team team1 = board.registerNewTeam("team1");
@@ -49,21 +63,32 @@ public class ScoreBoardListener implements Listener {
         team1.setPrefix(ChatColorUtil.colorize("&7&lRank: "));
         team1.setSuffix(main.getRankManager().getRank(player.getUniqueId()).getDisplay());
 
-        obj.getScore(teamKey).setScore(3);
+        obj.getScore(teamKey).setScore(4);
 
         // SPACE #1
         Score space1 = obj.getScore(" ");
-        space1.setScore(2);
+        space1.setScore(3);
 
-        // WEBSTIE AT THE BOTTOM
+        // RIGHT ABOVE THE WEBSITE
+        Score line1 = obj.getScore(ChatColorUtil.colorize(("&7&l----------------- ")));
+        line1.setScore(2);
+
+        // WEBSITE AT THE BOTTOM
         Score website = obj.getScore(ChatColorUtil.colorize(("&7www.frostednetwork.com")));
         website.setScore(1);
-
-        // SETS THE SCOREBOARD
-        player.setScoreboard(board);
-
     }
 
+    private void createPlayerList(Scoreboard board, Player player) {
+        Objective playerListObj = board.registerNewObjective("playerlist", "dummy");
+        playerListObj.setDisplaySlot(DisplaySlot.PLAYER_LIST);
+
+        Team team2 = board.registerNewTeam("team2");
+
+        team2.setPrefix(main.getRankManager().getRank(player.getUniqueId()).getDisplay());
+
+        player.setPlayerListName(team2.getPrefix() + " " + ChatColor.GRAY + player.getName());
+
+    }
 }
 
 
