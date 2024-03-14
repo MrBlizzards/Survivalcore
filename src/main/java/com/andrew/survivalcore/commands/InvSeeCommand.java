@@ -97,6 +97,13 @@ public class InvSeeCommand extends CommandManager implements Listener {
         // Adds the player's offhand item to the inventory
         inv.setItem(53, target.getInventory().getItemInOffHand());
 
+        // Added a information item to help with how the inventory works
+        ItemStack info = createItemStack(Material.BOOK, ChatColorUtil.colorize("&5&lHow the inventory works"), Arrays.asList(ChatColorUtil.colorize("&7- The top inventory is the player's inventory."),
+                                                                                                                                 ChatColorUtil.colorize("&7- The bottom left is the player's armor."),
+                                                                                                                                 ChatColorUtil.colorize("&7- The last slot on the bottom right is the player's offhand.")), 1);
+
+        inv.setItem(49, info);
+
         return inv;
     }
 
