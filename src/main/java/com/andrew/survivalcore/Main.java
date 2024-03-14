@@ -12,6 +12,8 @@ public final class Main extends JavaPlugin {
     private RankManager rankManager;
     private NameTagManager nameTagManager;
 
+    // OnPlayerInteract Method in LauncherMenuListener is broken. Need to find another to detect what launcher the player is holding.
+
     @Override
     public void onEnable() {
 
