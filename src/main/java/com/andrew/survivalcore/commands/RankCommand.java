@@ -2,6 +2,7 @@ package com.andrew.survivalcore.commands;
 
 import com.andrew.survivalcore.Main;
 import com.andrew.survivalcore.enums.RankEnum;
+import com.andrew.survivalcore.enums.StringEnum;
 import com.andrew.survivalcore.managers.CommandManager;
 import com.andrew.survivalcore.utils.ChatColorUtil;
 import com.google.common.cache.Cache;
@@ -39,13 +40,13 @@ public class RankCommand extends CommandManager {
         // Rank <player> <rank <type>
 
         if (!(sender instanceof Player player)) {
-            sender.sendMessage("Only a player may execute this command.");
+            sender.sendMessage(StringEnum.PLAYER_ONLY_COMMAND.getValue());
             return;
         }
 
         // Checks to see if the player is op or not.
         if (!player.isOp()) {
-            sender.sendMessage(ChatColorUtil.colorize("&cYou must be OP to use this command!"));
+            sender.sendMessage(ChatColorUtil.colorize(StringEnum.OP_ONLY_COMMAND.getValue()));
             return;
         }
 

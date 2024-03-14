@@ -41,7 +41,7 @@ public class EnderChestCommand extends CommandManager {
     public void execute(CommandSender sender, String[] args) {
 
         if (!(sender instanceof Player player)) {
-            sender.sendMessage("Only a player may execute this command.");
+            sender.sendMessage(StringEnum.PLAYER_ONLY_COMMAND.getValue());
             return;
         }
 
@@ -58,7 +58,7 @@ public class EnderChestCommand extends CommandManager {
                     player.sendMessage(ChatColorUtil.colorize(StringEnum.PLAYER_NOT_FOUND.getValue()));
                     return;
                 }
-                player.openInventory(target.getEnderChest());
+                player.openInventory(target.getInventory());
                 player.sendMessage(ChatColorUtil.colorize(StringEnum.SURVIVALCORE_PREFIX.getValue() + " &7Opening " + target.getName() + "'s enderchest..."));
             }
 

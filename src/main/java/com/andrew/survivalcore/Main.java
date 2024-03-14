@@ -21,6 +21,7 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new MainMenuListener(this), this);
         Bukkit.getPluginManager().registerEvents(new LauncherMenuListener(this), this);
         Bukkit.getPluginManager().registerEvents(new ServerListPingListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new InvSeeCommand(this), this);
 
         // Register Managers
         rankManager = new RankManager(this);
@@ -31,6 +32,7 @@ public final class Main extends JavaPlugin {
         new MenuCommand(this);
         new CraftCommand(this);
         new EnderChestCommand(this);
+        new InvSeeCommand(this);
 
         // Register Gamemode commands
         new GamemodeCreative(this);

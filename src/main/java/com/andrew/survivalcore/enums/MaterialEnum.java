@@ -10,18 +10,18 @@ import java.util.List;
 public enum MaterialEnum {
 
     // FRAME
-    FRAME(" ", " ", Material.GRAY_STAINED_GLASS_PANE),
+    FRAME(" ", " ", Material.BLACK_STAINED_GLASS_PANE),
 
     // MAIN MENU GUIS
-    LAUNCHERMENU(ChatColor.GREEN.toString() + ChatColor.BOLD + "Launcher Menu", ChatColor.GRAY + "Opens the launcher menu", Material.DIAMOND_HOE),
+    LAUNCHERMENU(ChatColorUtil.colorize("&b&lLauncher Menu"), ChatColorUtil.colorize("&7Opens the launcher menu"), Material.DIAMOND_HOE),
 
     // LAUNCHER ENUMS
-    DRAGONFIREBALLLAUNCHER(ChatColor.DARK_PURPLE.toString() + ChatColor.BOLD + "Dragonfireball Launcher", ChatColor.GRAY + "This launches a fireball like the enderdragon!", Material.WOODEN_HOE),
-    EGG(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Egg Launcher", ChatColor.GRAY + "This launches an egg!",  Material.STONE_HOE),
-    SNOWBALL(ChatColor.WHITE.toString() + ChatColor.BOLD + "Snowball Launcher", ChatColor.GRAY + "This launches a snowball!", Material.IRON_HOE),
-    FIREBALL(ChatColor.GOLD.toString() + ChatColor.BOLD + "Fireball Launcher", ChatColor.GRAY + "This launches a fireball!", Material.GOLDEN_HOE),
-    TRIDENT(ChatColor.AQUA.toString() + ChatColor.BOLD + "Trident Launcher", ChatColor.GRAY + "This launches a trident!", Material.DIAMOND_HOE),
-    TELEPORTBOW(ChatColor.RED.toString() + ChatColor.BOLD + "Teleport Bow", ChatColor.GRAY + "This teleports you to where ever the arrow lands!", Material.BOW);
+    DRAGONFIREBALLLAUNCHER(ChatColorUtil.colorize("&5&lDragonfireball Launcher"), ChatColorUtil.colorize("&7This launches a fireball like the enderdragon!"), Material.WOODEN_HOE),
+    EGG(ChatColorUtil.colorize("&e&lEgg Launcher"), ChatColorUtil.colorize("&7This launches an egg!"), Material.STONE_HOE),
+    SNOWBALL(ChatColorUtil.colorize("&f&lSnowball Launcher"), ChatColorUtil.colorize("&7This launches a snowball!"), Material.IRON_HOE),
+    FIREBALL(ChatColorUtil.colorize("&6&lFireball Launcher"), ChatColorUtil.colorize("&7This launches a fireball!"), Material.GOLDEN_HOE),
+    TRIDENT(ChatColorUtil.colorize("&b&lTrident Launcher"), ChatColorUtil.colorize("&7This launches a trident!"), Material.DIAMOND_HOE),
+    TELEPORTBOW(ChatColorUtil.colorize("&c&lTeleport Bow"), ChatColorUtil.colorize("&7This teleports you to where ever the arrow lands!"), Material.BOW);
 
     private String name;
     private String lore;

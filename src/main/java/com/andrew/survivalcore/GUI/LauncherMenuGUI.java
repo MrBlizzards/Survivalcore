@@ -1,6 +1,7 @@
 package com.andrew.survivalcore.GUI;
 
 import com.andrew.survivalcore.enums.MaterialEnum;
+import com.andrew.survivalcore.utils.ChatColorUtil;
 import com.andrew.survivalcore.utils.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,7 +23,7 @@ public class LauncherMenuGUI {
 
         List<MaterialEnum> launchers = MaterialEnum.getAllMaterialEnum();
 
-        Inventory LauncherMenu = Bukkit.createInventory(null, 45, ChatColor.DARK_AQUA.toString() + ChatColor.BOLD + "Launcher Menu");
+        Inventory LauncherMenu = Bukkit.createInventory(null, 45, MaterialEnum.LAUNCHERMENU.getName());
 
         // FRAME
         ItemStack frame = createItemStack(MaterialEnum.FRAME.getMaterial(), MaterialEnum.FRAME.getName(), Arrays.asList(MaterialEnum.FRAME.getLore()), 1);

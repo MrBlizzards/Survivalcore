@@ -2,6 +2,7 @@ package com.andrew.survivalcore.listeners;
 
 import com.andrew.survivalcore.GUI.LauncherMenuGUI;
 import com.andrew.survivalcore.Main;
+import com.andrew.survivalcore.utils.ChatColorUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,7 +26,7 @@ public class MainMenuListener implements Listener {
         Player target = (Player) e.getWhoClicked();
         ItemStack item = e.getCurrentItem();
 
-        if (ChatColor.translateAlternateColorCodes('&', e.getView().getTitle()).equals(ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + "Main Menu") && e.getCurrentItem() != null) {
+        if (ChatColor.translateAlternateColorCodes('&', e.getView().getTitle()).equals(ChatColorUtil.colorize("&8&lMain Menu")) && e.getCurrentItem() != null) {
             e.setCancelled(true);
 
             if (e.getSlot() == 20) {

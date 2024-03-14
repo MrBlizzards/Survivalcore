@@ -2,7 +2,10 @@ package com.andrew.survivalcore.listeners;
 
 import com.andrew.survivalcore.Main;
 import com.andrew.survivalcore.enums.MaterialEnum;
+import com.andrew.survivalcore.utils.ChatColorUtil;
 import com.andrew.survivalcore.utils.ItemBuilder;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -14,8 +17,13 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class LauncherMenuListener implements Listener {
+
+    // Cooldown
+    private Cache<UUID, Long> cooldown = CacheBuilder.newBuilder().expireAfterWrite(1, TimeUnit.SECONDS).build();
 
     // ItemBuilder Util
     private ItemStack createItemStack(Material material, String name, List<String> lore, int amount) {
@@ -34,9 +42,15 @@ public class LauncherMenuListener implements Listener {
         Player player = e.getPlayer();
         ItemStack item = e.getItem();
 
-        if (e.hasItem() && e.getItem() != null) {
+        if (item == null) {
+            return;
+        }
+
+        if (!cooldown.asMap().containsKey(player.getUniqueId())) {
+            cooldown.put(player.getUniqueId(), System.currentTimeMillis() + 3000);
             for (MaterialEnum launcher : launchers) {
-                if (item.getItemMeta().getDisplayName().equals(launcher.getName())) {
+
+                if (item.getType() == launcher.getMaterial() && item.getItemMeta().getDisplayName().equals(launcher.getName())) {
                     switch (launcher.getMaterial()) {
                         case WOODEN_HOE:
                             player.launchProjectile(DragonFireball.class);
@@ -61,6 +75,9 @@ public class LauncherMenuListener implements Listener {
                     }
                 }
             }
+        } else {
+            long distance = cooldown.asMap().get(player.getUniqueId()) - System.currentTimeMillis();
+            player.sendMessage(ChatColor.RED + "You must wait " + TimeUnit.MILLISECONDS.toSeconds(distance) + " seconds to use this again.");
         }
     }
 
@@ -120,58 +137,38 @@ public class LauncherMenuListener implements Listener {
         Player target = (Player) e.getWhoClicked();
         ItemStack item = e.getCurrentItem();
 
-        if (ChatColor.translateAlternateColorCodes('&', e.getView().getTitle()).equals(ChatColor.DARK_AQUA.toString() + ChatColor.BOLD + "Launcher Menu") && e.getCurrentItem() != null) {
+        if (ChatColor.translateAlternateColorCodes('&', e.getView().getTitle()).equals(MaterialEnum.LAUNCHERMENU.getName()) && e.getCurrentItem() != null) {
             e.setCancelled(true);
 
-                    for (MaterialEnum launcher : launchers) {
-                        if (item.getItemMeta().getDisplayName().equals(launcher.getName())) {
-                            ItemStack itemStack = createItemStack(launcher.getMaterial(), launcher.getName(), Arrays.asList(launcher.getLore()), 1);
+            if (!cooldown.asMap().containsKey(target.getUniqueId())) {
+                cooldown.put(target.getUniqueId(), System.currentTimeMillis() + 3000);
+                for (MaterialEnum launcher : launchers) {
+                    if (item.getItemMeta().getDisplayName().equals(launcher.getName())) {
 
-                            switch (e.getRawSlot()) {
-                                case 11:
-                                    if (target.hasPermission("commands.launcher.dragonfireball")) {
-                                        target.getInventory().addItem(itemStack);
-                                        target.sendMessage(ChatColor.GRAY + "You have selected the " + itemStack.getItemMeta().getDisplayName() + ChatColor.GRAY + ".");
-                                    }
-                                    break;
-                                case 12:
-                                    if (target.hasPermission("commands.launcher.egg")) {
-                                        target.getInventory().addItem(itemStack);
-                                        target.sendMessage(ChatColor.GRAY + "You have selected the " + itemStack.getItemMeta().getDisplayName() + ChatColor.GRAY + ".");
-                                    }
-                                    break;
-                                case 13:
-                                    if (target.hasPermission("commands.launcher.snowball")) {
-                                        target.getInventory().addItem(itemStack);
-                                        target.sendMessage(ChatColor.GRAY + "You have selected the " + itemStack.getItemMeta().getDisplayName() + ChatColor.GRAY + ".");
-                                    }
-                                    break;
-                                case 14:
-                                    if (target.hasPermission("commands.launcher.fireball")) {
-                                        target.getInventory().addItem(itemStack);
-                                        target.sendMessage(ChatColor.GRAY + "You have selected the " + itemStack.getItemMeta().getDisplayName() + ChatColor.GRAY + ".");
-                                    }
-                                    break;
-                                case 15:
-                                    if (target.hasPermission("commands.launcher.trident")) {
-                                        target.getInventory().addItem(itemStack);
-                                        target.sendMessage(ChatColor.GRAY + "You have selected the " + itemStack.getItemMeta().getDisplayName() + ChatColor.GRAY + ".");
-                                    }
-                                    break;
-                                case 22:
-                                    if (target.hasPermission("commands.launcher.arrow")) {
-                                        target.getInventory().addItem(itemStack);
-                                        target.sendMessage(ChatColor.GRAY + "You have selected the " + itemStack.getItemMeta().getDisplayName() + ChatColor.GRAY + ".");
-                                    }
-                                    break;
-                                default:
-                                    target.getInventory().addItem(itemStack);
-                                    target.sendMessage(ChatColor.GRAY + "You have selected the " + itemStack.getItemMeta().getDisplayName() + ChatColor.GRAY + ".");
-                                    return;
-                            }
+                        ItemStack itemStack = createItemStack(launcher.getMaterial(), launcher.getName(), Arrays.asList(launcher.getLore()), 1);
+                        String message = ChatColorUtil.colorize("&7You have selected the " + itemStack.getItemMeta().getDisplayName() + ChatColorUtil.colorize("&7."));
 
+                        switch (e.getRawSlot()) {
+                            case 11:
+                            case 12:
+                            case 13:
+                            case 14:
+                            case 15:
+                            case 22:
+                                target.getInventory().addItem(itemStack);
+                                    target.sendMessage(message);
+                                break;
+                            default:
+                                return;
                         }
+
                     }
+                }
+            } else {
+                long distance = cooldown.asMap().get(target.getUniqueId()) - System.currentTimeMillis();
+                target.sendMessage(ChatColor.RED + "You must wait " + TimeUnit.MILLISECONDS.toSeconds(distance) + " seconds to use this again.");
+            }
         }
+
     }
 }

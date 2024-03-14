@@ -35,7 +35,7 @@ public class CraftCommand extends CommandManager {
     public void execute(CommandSender sender, String[] args) {
 
         if (!(sender instanceof Player player)) {
-            sender.sendMessage("Only a player may execute this command.");
+            sender.sendMessage(StringEnum.PLAYER_ONLY_COMMAND.getValue());
             return;
         }
 
@@ -47,7 +47,7 @@ public class CraftCommand extends CommandManager {
         if (!cooldown.asMap().containsKey(player.getUniqueId())) {
             cooldown.put(player.getUniqueId(), System.currentTimeMillis() + 3000);
             player.openWorkbench(null, true);
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', StringEnum.SURVIVALCORE_PREFIX.getValue() + ChatColorUtil.colorize(" &7Opening a virtual crafting table....")));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', StringEnum.SURVIVALCORE_PREFIX.getValue() + ChatColorUtil.colorize(" &7Opening a virtual crafting table...")));
         } else {
             long distance = cooldown.asMap().get(player.getUniqueId()) - System.currentTimeMillis();
             player.sendMessage(ChatColor.RED + "You must wait " + TimeUnit.MILLISECONDS.toSeconds(distance) + " seconds to use this again.");

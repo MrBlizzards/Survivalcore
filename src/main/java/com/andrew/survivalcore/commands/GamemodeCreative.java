@@ -38,7 +38,7 @@ public class GamemodeCreative extends CommandManager {
     public void execute(CommandSender sender, String[] args) {
 
         if (!(sender instanceof Player player)) {
-            sender.sendMessage("Only a player may execute this command.");
+            sender.sendMessage(StringEnum.PLAYER_ONLY_COMMAND.getValue());
             return;
         }
 

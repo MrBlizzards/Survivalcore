@@ -1,6 +1,7 @@
 package com.andrew.survivalcore.GUI;
 
 import com.andrew.survivalcore.enums.MaterialEnum;
+import com.andrew.survivalcore.enums.StringEnum;
 import com.andrew.survivalcore.utils.ChatColorUtil;
 import com.andrew.survivalcore.utils.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -21,7 +22,7 @@ public class MainMenuGUI {
 
     public Inventory getMainMenuInventory() {
 
-        Inventory mainMenu = Bukkit.createInventory(null, 45, ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + "Main Menu");
+        Inventory mainMenu = Bukkit.createInventory(null, 45, StringEnum.MAINMENU.getValue());
 
         // FRAME
         ItemStack frame = createItemStack(MaterialEnum.FRAME.getMaterial(), MaterialEnum.FRAME.getName(), Arrays.asList(MaterialEnum.FRAME.getLore()), 1);

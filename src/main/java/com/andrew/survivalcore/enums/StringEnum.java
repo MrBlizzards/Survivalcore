@@ -1,12 +1,18 @@
 package com.andrew.survivalcore.enums;
 
+import com.andrew.survivalcore.utils.ChatColorUtil;
+import org.bukkit.ChatColor;
+
 import java.util.Arrays;
 import java.util.List;
 
 public enum StringEnum {
 
-    SURVIVALCORE_PREFIX("&8[&a&lSurvivalCore&8]"),
-    PLAYER_NOT_FOUND("&cPlayer not found!");
+    SURVIVALCORE_PREFIX(ChatColorUtil.colorize("&8[&a&lSurvivalCore&8]")),
+    PLAYER_NOT_FOUND(ChatColorUtil.colorize("&cPlayer not found!")),
+    PLAYER_ONLY_COMMAND(ChatColorUtil.colorize("Only a player may execute this command.")),
+    OP_ONLY_COMMAND(ChatColorUtil.colorize("&cYou must be OP to use this command!")),
+    MAINMENU(ChatColorUtil.colorize("&8&lMain Menu"));
 
     private String value;
 

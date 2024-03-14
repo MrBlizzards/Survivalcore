@@ -2,6 +2,7 @@ package com.andrew.survivalcore.commands;
 
 import com.andrew.survivalcore.GUI.MainMenuGUI;
 import com.andrew.survivalcore.Main;
+import com.andrew.survivalcore.enums.StringEnum;
 import com.andrew.survivalcore.managers.CommandManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -30,7 +31,7 @@ public class MenuCommand extends CommandManager {
         // Main menu command /menu
 
         if (!(sender instanceof Player player)) {
-            sender.sendMessage("Only a player may execute this command.");
+            sender.sendMessage(StringEnum.PLAYER_ONLY_COMMAND.getValue());
             return;
         }
 
