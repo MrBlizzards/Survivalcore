@@ -12,7 +12,10 @@ public enum StringEnum {
     PLAYER_NOT_FOUND(ChatColorUtil.colorize("&cPlayer not found!")),
     PLAYER_ONLY_COMMAND(ChatColorUtil.colorize("Only a player may execute this command.")),
     OP_ONLY_COMMAND(ChatColorUtil.colorize("&cYou must be OP to use this command!")),
-    MAINMENU(ChatColorUtil.colorize("&8&lMain Menu"));
+
+    // GUI STRINGS
+    MAINMENU(ChatColorUtil.colorize("&8&lMain Menu")),
+    WARPMENU(ChatColorUtil.colorize("&8&lWarps Menu"));
 
     private String value;
 
